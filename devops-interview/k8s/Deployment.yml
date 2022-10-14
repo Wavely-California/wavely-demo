@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wavely-demo
+  labels:
+    app: wavely-demo
+spec:
+  selector:
+    matchLabels:
+        app: wavely-demo
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: wavely-demo
+    spec:
+      containers:
+        - name: wavely-demo
+          image: 032209931663.dkr.ecr.us-west-2.amazonaws.com/wavely-demo:latest
+          ports:
+            - containerPort: 9090
+              protocol: TCP
+          imagePullPolicy: Always
