@@ -73,6 +73,7 @@ jobs:
             --remote-name
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
+        mkdir $HOME/.kube
         echo ${{ secrets.KUBECONFIG }} | base64 --decode > $HOME/.kube/config
 
     - name: Deploy in k8s
