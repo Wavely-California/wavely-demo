@@ -67,15 +67,13 @@ jobs:
     - name: Install and configure kubectl
       run: |
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
-        # curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl \
+        curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
             --progress-bar \
             --location \
             --remote-name
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
-        mkdir $HOME/.kube
-        echo ${{ secrets.KUBECONFIG }} | base64 --decode > $HOME/.kube/config
+        echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
     - name: Deploy in k8s
       run: kubectl apply -f ./k8s
